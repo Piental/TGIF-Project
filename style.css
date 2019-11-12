@@ -1,0 +1,76 @@
+#animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s;
+}
+
+@-webkit-keyframes animatebottom {
+  from {
+    bottom: -100px;
+    opacity: 0;
+  }
+  to {
+    bottom: 0px;
+    opacity: 1;
+  }
+}
+
+@keyframes animatebottom {
+  from {
+    bottom: -100px;
+    opacity: 0;
+  }
+  to {
+    bottom: 0;
+    opacity: 1;
+  }
+}
+
+.floating {
+  display: flex;
+  justify-content: flex start;
+  align-items: center;
+  background-image: url("Capitol-background.jpg");
+  background-size: 115%;
+  padding: 3%;
+  box-shadow: 0px 0px 40px #c2cfcf;
+}
+
+#logo {
+  width: 7%;
+  height: 7%;
+  box-shadow: 0px 0px 40px #717474;
+  border-radius: 80px;
+  margin-right: 13%;
+}
+
+#slide {
+  padding: 2%;
+}
+
+.floating h2 {
+  font-size: 300%;
+  width: 120%;
+}
+
+.flex_content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: top;
+  justify-content: space-between;
+}
+
+.text {
+  width: 60%;
+}
+
+.text2 {
+}
+
+.img {
+  width: 35%;
+  padding: 2%;
+  padding-bottom: 4%;
+}
