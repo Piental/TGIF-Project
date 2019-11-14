@@ -33,7 +33,7 @@
   justify-content: flex start;
   align-items: center;
   background-image: url("Capitol-background.jpg");
-  background-size: 115%;
+  background-size: 101%;
   padding: 3%;
   box-shadow: 0px 0px 40px #c2cfcf;
 }
@@ -63,14 +63,26 @@
 }
 
 .text {
-  width: 60%;
-}
-
-.text2 {
+  width: 60%z;
 }
 
 .img {
-  width: 35%;
+  width: 45%;
   padding: 2%;
   padding-bottom: 4%;
+}
+
+.flexitem {
+  padding-top: 2%;
+  width: 630px;
+}
+
+.justify {
+  text-align: justify;
+}
+
+.footer-copyright {
+  border-width: 1px;
+
+  border-style: solid;
 }

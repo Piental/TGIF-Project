@@ -1,12 +1,11 @@
-<!DOCTYPE html>
 <html lang="en">
   <head>
+    <title>Senate Loyality</title>
     <link rel="stylesheet" href="style.css" />
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
     />
-    <title>Congress House</title>
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
@@ -20,7 +19,7 @@
           <li class="nav-item">
             <a class="nav-link" href="index.html">Home</a>
           </li>
-          <li class="nav-item dropdown active">
+          <li class="nav-item dropdown">
             <a
               href="#"
               class="nav-link dropdown-toggle"
@@ -56,7 +55,7 @@
               <a class="dropdown-item" href="house-attendance.html">House</a>
             </div>
           </li>
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown active">
             <a
               href="#"
               class="nav-link dropdown-toggle"
@@ -85,36 +84,50 @@
         <img id="logo" src="logo.png" alt="logo" />
         <h2><i>Transparent Government in Fact</i></h2>
       </div>
-      <div id="slide">
-        <h2>Senators</h2>
-        <p>
-          First convened in 1789, the composition and powers of the Senate are
-          established in Article One of the U.S. Constitution. Each state is
-          represented by two senators, regardless of population, who serve
-          staggered six-year terms. The Senate has several exclusive powers not
-          granted to the House, including consenting to treaties as a
-          precondition to their ratification and consenting to or confirming
-          appointments of Cabinet secretaries, federal judges, other federal
-          executive officials, military officers, regulatory officials,
-          ambassadors, and other federal uniformed officers, as well as trial of
-          federal officials impeached by the House.
-        </p>
-      </div>
-      <div id="animate-bottom">
-        <table class="table table-striped table-hover">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Name</th>
-              <th>Party</th>
-              <th>State</th>
-              <th>Years in Office</th>
-              <th>Percentage of Votes</th>
-            </tr>
+      <div class="flex_content">
+        <div class="flexitem">
+          <h2>Party Loyality</h2>
+          <p class="justify">
+            Those who consider themselves to be strong partisans, strong
+            Democrats and strong Republicans respectively, tend to be the most
+            faithful in voting for their party's nominee for office and
+            legislation that backs their party's agenda.
+          </p>
+        </div>
+        <div class="flexitem">
+          <h2>Senate at a glance</h2>
+          <table class="table">
+            <tbody id="data1">
+              <thead>
+                <td>Party</td>
+                <td>Number of Reps</td>
+                <td>% Voted with Party</td>
+              </thead>
+            </tbody>
+          </table>
+        </div>
+        <div class="flexitem">
+          <h2>Least Loyal (Bottom 10% of Party)</h2>
+          <table class="table"><thead>
+            <td>Name</td>
+            <td>Number Party Votes</td>
+            <td>% Party Votes</td>
           </thead>
-          <tbody id="data"></tbody>
-        </table>
+            <tbody id="data4"></tbody>
+          </table>
+        </div>
+        <div class="flexitem">
+          <h2>Most Loyal (Top 10% of Party)</h2>
+          <table class="table"><thead>
+            <td>Name</td>
+            <td>Number Party Votes</td>
+            <td>% Party Votes</td>
+          </thead>
+            <tbody id="data5"></tbody>
+          </table>
+        </div>
       </div>
+
       <div class="footer-copyright text-center py-3">
         © 2019 TGIF Copyright: All Rights Reserved
       </div>
@@ -137,6 +150,6 @@
     ></script>
     <script src="pro-congress-113-senate.js"></script>
     <script src="pro-congress-113-house.js"></script>
-    <script src="congress.js"></script>
+    <script src="statistics.js"></script>
   </body>
 </html>

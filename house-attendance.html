@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <title>House Attendance</title>
     <link rel="stylesheet" href="style.css" />
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
     />
-    <title>Congress House</title>
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
@@ -20,7 +20,7 @@
           <li class="nav-item">
             <a class="nav-link" href="index.html">Home</a>
           </li>
-          <li class="nav-item dropdown active">
+          <li class="nav-item dropdown">
             <a
               href="#"
               class="nav-link dropdown-toggle"
@@ -39,7 +39,7 @@
               <a class="dropdown-item" href="house-starter-page.html">House</a>
             </div>
           </li>
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown  active">
             <a
               href="#"
               class="nav-link dropdown-toggle"
@@ -85,36 +85,61 @@
         <img id="logo" src="logo.png" alt="logo" />
         <h2><i>Transparent Government in Fact</i></h2>
       </div>
-      <div id="slide">
-        <h2>Senators</h2>
-        <p>
-          First convened in 1789, the composition and powers of the Senate are
-          established in Article One of the U.S. Constitution. Each state is
-          represented by two senators, regardless of population, who serve
-          staggered six-year terms. The Senate has several exclusive powers not
-          granted to the House, including consenting to treaties as a
-          precondition to their ratification and consenting to or confirming
-          appointments of Cabinet secretaries, federal judges, other federal
-          executive officials, military officers, regulatory officials,
-          ambassadors, and other federal uniformed officers, as well as trial of
-          federal officials impeached by the House.
-        </p>
+      <div class="flex_content">
+        <div class="flexitem">
+          <h2>Attendance</h2>
+          <p class="justify">
+            The Constitution specifies that a majority of members constitutes a
+            quorum to do business in each house. Representatives and senators
+            rarely force the presence of a quorum by demanding quorum calls;
+            thus, in most cases, debates continue even if a majority is not
+            present. The Senate uses roll-call votes; a clerk calls out the
+            names of all the senators, each senator stating "aye" or "no" when
+            his or her name is announced. The House reserves roll-call votes for
+            the most formal matters, as a roll-call of all 435 representatives
+            takes quite some time; normally, members vote by electronic device.
+            In the case of a tie, the motion in question fails. In the Senate,
+            the Vice President may (if present) cast the tiebreaking vote.
+          </p>
+        </div>
+        <div class="flexitem">
+          <h2>House at a glance</h2>
+          <table class="table">
+            <tbody id="data1">
+              <thead>
+                <td>Party</td>
+                <td>Number of Reps</td>
+                <td>% Voted with Party</td>
+              </thead>
+            </tbody>
+          </table>
+        </div>
+        <div class="flexitem">
+          <h2>Least Engaged (Bottom 10% Attendance)</h2>
+          <table class="table">
+            <tbody id="data2">
+              <thead>
+                <td>Name</td>
+                <td>Number of Missed Votes</td>
+                <td>% Missed</td>
+              </thead>
+            </tbody>
+          </table>
+        </div>
+        <div class="flexitem">
+          <h2>Most Engaged (Top 10% Attendance)</h2>
+          <table class="table">
+            <tbody id="data3">
+              <thead>
+                <td>Name</td>
+                <td>Number of Missed Votes</td>
+                <td>% Missed</td>
+              </thead>
+            </tbody>
+          </table>
+        </div>
       </div>
-      <div id="animate-bottom">
-        <table class="table table-striped table-hover">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Name</th>
-              <th>Party</th>
-              <th>State</th>
-              <th>Years in Office</th>
-              <th>Percentage of Votes</th>
-            </tr>
-          </thead>
-          <tbody id="data"></tbody>
-        </table>
-      </div>
+
       <div class="footer-copyright text-center py-3">
         © 2019 TGIF Copyright: All Rights Reserved
       </div>
@@ -137,6 +162,6 @@
     ></script>
     <script src="pro-congress-113-senate.js"></script>
     <script src="pro-congress-113-house.js"></script>
-    <script src="congress.js"></script>
+    <script src="statistics.js"></script>
   </body>
 </html>

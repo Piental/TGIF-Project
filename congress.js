@@ -1,5 +1,10 @@
-var members = data.results[0].members;
-var temp = "";
+if (document.title == "Congress House") {
+  var members = data2.results[0].members;
+  var temp = "";
+} else if (document.title == "Congress Senate") {
+  var members = data.results[0].members;
+  var temp = "";
+}
 
 members.forEach(function(oneMember, index) {
   var middleName = oneMember.middle_name;
@@ -23,3 +28,8 @@ members.forEach(function(oneMember, index) {
 });
 
 document.getElementById("data").innerHTML = temp;
+
+/*var link = document.createElement("a");
+<td><a
+         link.setAttribute("href", table.url);
+link.innerHTML =  firstName + " " + middleName + " " + lastName; */
