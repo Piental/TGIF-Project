@@ -97,13 +97,15 @@ function lowEng(temp2 = "") {
         middleName = "";
       }
       temp2 +=
-        "<tr><td>" +
+        '<tr><td><a href="' +
+        members[i].url +
+        '">' +
         members[i].first_name +
         " " +
         middleName +
         " " +
         members[i].last_name +
-        "</td>";
+        "</a></td>";
       temp2 += "<td>" + members[i].missed_votes + "</td>";
       temp2 += "<td>" + members[i].missed_votes_pct + " %" + "</td></tr>";
     }
@@ -127,13 +129,15 @@ function highEng(temp3 = "") {
         middleName = "";
       }
       temp3 +=
-        "<tr><td>" +
+        '<tr><td><a href="' +
+        members[i].url +
+        '">' +
         members[i].first_name +
         " " +
         middleName +
         " " +
         members[i].last_name +
-        "</td>";
+        "</a></td>";
       temp3 += "<td>" + members[i].missed_votes + "</td>";
       temp3 += "<td>" + members[i].missed_votes_pct + " %" + "</td></tr>";
     }
@@ -157,13 +161,15 @@ function lowLoy(temp4 = "") {
         middleName = "";
       }
       temp4 +=
-        "<tr><td>" +
+        '<tr><td><a href="' +
+        members[i].url +
+        '">' +
         members[i].first_name +
         " " +
         middleName +
         " " +
         members[i].last_name +
-        "</td>";
+        "</a></td>";
       temp4 += "<td>" + members[i].total_votes + "</td>";
       temp4 += "<td>" + members[i].votes_with_party_pct + " %" + "</td></tr>";
     }
@@ -187,13 +193,15 @@ function mostLoy(temp5 = "") {
         middleName = "";
       }
       temp5 +=
-        "<tr><td>" +
+        '<tr><td><a href="' +
+        members[i].url +
+        '">' +
         members[i].first_name +
         " " +
         middleName +
         " " +
         members[i].last_name +
-        "</td>";
+        "</a></td>";
       temp5 += "<td>" + members[i].total_votes + "</td>";
       temp5 += "<td>" + members[i].votes_with_party_pct + " %" + "</td></tr>";
     }

@@ -102,9 +102,21 @@
       </div>
       <div id="animate-bottom">
         <table class="table table-striped table-hover">
-          <thead>
+                <div class="filters">
+                  <div class="checkboxes">
+                    <span>Filter by Party:</span>
+                    <input type="checkbox" onclick="selectCheck()" class="check" id="D" checked /><span>Democrats</span><br />
+                    <input type="checkbox" onchange="selectCheck()" class="check" id="R" checked /><span>Republicans</span><br />
+                    <input type="checkbox" onchange="selectCheck()" class="check" id="I" checked /><span>Independents</span><br />
+                  </div>
+                  <div class="dropdown" onchange="selectCheck()">
+                    <span class="check">Filter by State:</span>
+                    <select id="stateList">
+                    </select>
+                  </div>
+                </div>
+            <thead>
             <tr>
-              <th></th>
               <th>Name</th>
               <th>Party</th>
               <th>State</th>
