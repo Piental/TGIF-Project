@@ -2,35 +2,54 @@ if (
   document.title == "House Attendance" ||
   document.title == "House Loyality"
 ) {
-  var members = data2.results[0].members;
+  var url = "https://api.propublica.org/congress/v1/113/house/members.json";
 } else if (
   document.title == "Senate Attendance" ||
   document.title == "Senate Loyality"
 ) {
-  var members = data.results[0].members;
+  var url = "https://api.propublica.org/congress/v1/113/senate/members.json";
 }
+
+/*fetching the data from propublica*/
+fetch(url, {
+  headers: {
+    "X-API-Key": "5sHtF1X9QGj8XEqYQe0Ca90vdJqO2CjvVBWtQzta"
+  }
+})
+  .then(function(data) {
+    return data.json();
+  })
+  .then(function(myData) {
+    console.log(myData);
+    members = myData.results[0].members;
+
+    helper();
+    /*helper runs each function below just when the data is fetched*/
+  });
+
+/* my statistic object <3 */
 
 var stat = [
   {
-    "Number of Democrats": 0,
-    "Number of Republicans": 0,
-    "Number of Independents": 0,
-    "Average 'Votes with party' for Democrats": 0,
-    "Average 'Votes with party' for Republicans": 0,
-    "Average 'Votes with party' for Independents": 0,
-    "Average 'Votes with party' for All": 0,
+    "No of Democrats": 0,
+    "No of Republicans": 0,
+    "No of Independents": 0,
+    "Average Democrats": 0,
+    "Average Republicans": 0,
+    "Average Independents": 0,
+    "Average All": 0,
     "Least engaged names": 0,
-    "Least engaged number of missed votes": 0,
-    "Least engaged percentage tableLeastEngagedmissed votes": 0,
+    "Least engaged missed votes": 0,
+    "Least engaged %": 0,
     "Most engaged names": 0,
-    "Most engaged number of missed votes": 0,
-    "Most engaged percentage of missed votes": 0,
+    "Most engaged missed votes": 0,
+    "Most engaged %": 0,
     "Least loyal names": 0,
-    "Least loyal number of votes": 0,
-    "Least loyal percentage party votes": 0,
+    "Least loyal votes": 0,
+    "Least loyal % party votes": 0,
     "Most loyal names": 0,
-    "Most loyal number of votes": 0,
-    "Most loyal percentage party votes": 0
+    "Most loyal votes": 0,
+    "Most loyal % party votes": 0
   }
 ];
 
@@ -41,16 +60,16 @@ var republicans = "R";
 var democrats = "D";
 var all = "all";
 
-function avg(letter) {
+function avg(a) {
   var sum = 0;
   var count = 0;
   var arr = [];
   for (i = 0; i < members.length; i++) {
-    if (letter === "all") {
+    if (a === "all") {
       sum += members[i].votes_with_party_pct;
       arr.push(members[i]);
       count += 1;
-    } else if (members[i].party == letter) {
+    } else if (members[i].party == a) {
       sum += members[i].votes_with_party_pct;
       arr.push(members[i]);
       count += 1;
@@ -63,9 +82,14 @@ function avg(letter) {
   }
 }
 
-/* Most&Least Engaged (10% Attendance) */
+/* Most&Least Engaged&Loyal (10% Attendance) */
 
-function eng(mvp) {
+var mvp = "missed_votes_pct";
+var mv = "missed_votes";
+var vwpp = "votes_with_party_pct";
+var tv = "total_votes";
+
+function eng(c, d) {
   var names = [];
   var missedVotes = [];
   var missedVotesPct = [];
@@ -74,39 +98,38 @@ function eng(mvp) {
   var missedVotesPct2 = [];
 
   members.sort(function(a, b) {
-    return a.missed_votes_pct - b.missed_votes_pct;
+    return a[c] - b[c];
   });
-  var percent10top =
-    members[(members.length / 10 - 1).toFixed(0)].missed_votes_pct;
+  var percent10top = members[(members.length / 10 - 1).toFixed(0)][c];
   var percent10bottom =
-    members[(members.length - members.length / 10).toFixed(0)].missed_votes_pct;
+    members[members.length - (members.length / 10).toFixed(0)][c];
 
   for (i = 0; i < members.length; i++) {
-    if (members[i].missed_votes_pct <= percent10top) {
+    if (members[i][c] <= percent10top) {
       var middleName = members[i].middle_name;
       if (members[i].middle_name === null) {
         names.push(members[i].first_name + " " + members[i].last_name);
-        missedVotes.push(members[i].missed_votes);
-        missedVotesPct.push(members[i].missed_votes_pct);
+        missedVotes.push(members[i][d]);
+        missedVotesPct.push(members[i][c]);
       } else {
         names.push(
           members[i].first_name + " " + middleName + " " + members[i].last_name
         );
-        missedVotes.push(members[i].missed_votes);
-        missedVotesPct.push(members[i].missed_votes_pct);
+        missedVotes.push(members[i][d]);
+        missedVotesPct.push(members[i][c]);
       }
-    } else if (members[i].missed_votes_pct >= percent10bottom) {
+    } else if (members[i][c] >= percent10bottom) {
       var middleName = members[i].middle_name;
       if (members[i].middle_name === null) {
         names2.unshift(members[i].first_name + " " + members[i].last_name);
-        missedVotes2.unshift(members[i].missed_votes);
-        missedVotesPct2.unshift(members[i].missed_votes_pct);
+        missedVotes2.unshift(members[i][d]);
+        missedVotesPct2.unshift(members[i][c]);
       } else {
         names2.unshift(
           members[i].first_name + " " + middleName + " " + members[i].last_name
         );
-        missedVotes2.unshift(members[i].missed_votes);
-        missedVotesPct2.unshift(members[i].missed_votes_pct);
+        missedVotes2.unshift(members[i][d]);
+        missedVotesPct2.unshift(members[i][c]);
       }
     }
   }
@@ -120,90 +143,118 @@ function eng(mvp) {
   ];
 }
 
-/*Most&Least 10% Loyal (10% Attendance) */
+/* sending all data to statistic object */
 
-function loy() {
-  var nam = [];
-  var totalVotes = [];
-  var votesWithParty = [];
-  var nam2 = [];
-  var totalVotes2 = [];
-  var votesWithParty2 = [];
-
-  members.sort(function(a, b) {
-    return a.votes_with_party_pct - b.votes_with_party_pct;
-  });
-  var percent10bottomLoy =
-    members[(members.length / 10 - 1).toFixed(0)].votes_with_party_pct;
-  var percent10topLoy =
-    members[(members.length - members.length / 10).toFixed(0)]
-      .votes_with_party_pct;
-
-  for (i = 0; i < members.length; i++) {
-    var middleName = members[i].middle_name;
-
-    if (members[i].votes_with_party_pct <= percent10bottomLoy) {
-      if (members[i].middle_name === null) {
-        nam.push(members[i].first_name + " " + members[i].last_name);
-        totalVotes.push(members[i].total_votes);
-        votesWithParty.push(members[i].votes_with_party_pct);
-      } else {
-        nam.push(
-          members[i].first_name + " " + middleName + " " + members[i].last_name
-        );
-        totalVotes.push(members[i].total_votes);
-        votesWithParty.push(members[i].votes_with_party_pct);
-      }
-    } else if (members[i].votes_with_party_pct >= percent10topLoy) {
-      var middleName = members[i].middle_name;
-      if (members[i].middle_name === null) {
-        nam2.unshift(members[i].first_name + " " + members[i].last_name);
-        totalVotes2.unshift(members[i].total_votes);
-        votesWithParty2.unshift(members[i].votes_with_party_pct);
-      } else {
-        nam2.unshift(
-          members[i].first_name + " " + middleName + " " + members[i].last_name
-        );
-        totalVotes2.unshift(members[i].total_votes);
-        votesWithParty2.unshift(members[i].votes_with_party_pct);
-      }
-    }
-  }
-  return [nam, totalVotes, votesWithParty, nam2, totalVotes2, votesWithParty2];
+function send() {
+  stat[0]["No of Democrats"] = avg(democrats)[1];
+  stat[0]["No of Republicans"] = avg(republicans)[1];
+  stat[0]["No of Independents"] = avg(independents)[1];
+  stat[0]["Average Democrats"] = avg(democrats)[2];
+  stat[0]["Average Republicans"] = avg(republicans)[2];
+  stat[0]["Average Independents"] = avg(independents)[2];
+  stat[0]["Average All"] = avg(all)[2];
+  stat[0]["Least engaged names"] = eng(mvp, mv)[3];
+  stat[0]["Least engaged missed votes"] = eng(mvp, mv)[4];
+  stat[0]["Least engaged %"] = eng(mvp, mv)[5];
+  stat[0]["Most engaged names"] = eng(mvp, mv)[0];
+  stat[0]["Most engaged missed votes"] = eng(mvp, mv)[1];
+  stat[0]["Most engaged %"] = eng(mvp, mv)[2];
+  stat[0]["Least loyal names"] = eng(vwpp, tv)[0];
+  stat[0]["Least loyal votes"] = eng(vwpp, tv)[1];
+  stat[0]["Least loyal % party votes"] = eng(vwpp, tv)[2];
+  stat[0]["Most loyal names"] = eng(vwpp, tv)[3];
+  stat[0]["Most loyal votes"] = eng(vwpp, tv)[4];
+  stat[0]["Most loyal % party votes"] = eng(vwpp, tv)[5];
 }
 
-stat[0]["Number of Democrats"] = avg(democrats)[1];
-stat[0]["Number of Republicans"] = avg(republicans)[1];
-stat[0]["Number of Independents"] = avg(independents)[1];
-stat[0]["Average 'Votes with party' for Democrats"] = avg(democrats)[2];
-stat[0]["Average 'Votes with party' for Republicans"] = avg(republicans)[2];
-stat[0]["Average 'Votes with party' for Independents"] = avg(independents)[2];
-stat[0]["Average 'Votes with party' for All"] = avg(all)[2];
-stat[0]["Least engaged names"] = eng()[3];
-stat[0]["Least engaged number of missed votes"] = eng()[4];
-stat[0]["Least engaged percentage of missed votes"] = eng()[5];
-stat[0]["Most engaged names"] = eng()[0];
-stat[0]["Most engaged number of missed votes"] = eng()[1];
-stat[0]["Most engaged percentage of missed votes"] = eng()[2];
-stat[0]["Least loyal names"] = loy()[0];
-stat[0]["Least loyal number of votes"] = loy()[1];
-stat[0]["Least loyal percentage party votes"] = loy()[2];
-stat[0]["Most loyal names"] = loy()[3];
-stat[0]["Most loyal number of votes"] = loy()[4];
-stat[0]["Most loyal percentage party votes"] = loy()[5];
+/*tables */
 
-function tableMostEngaged() {
-  document.getElementById("data3").innerHTML = "";
-  for (i = 0; i < stat[0]["Most engaged names"].length; i++) {
+var men = "Most engaged names";
+var me = "Most engaged %";
+var memv = "Most engaged missed votes";
+var table3 = "data3";
+
+var len = "Least engaged names";
+var lemv = "Least engaged missed votes";
+var le = "Least engaged %";
+var table2 = "data2";
+
+var mln = "Most loyal names";
+var mlv = "Most loyal votes";
+var mlpv = "Most loyal % party votes";
+var table5 = "data5";
+
+var lln = "Least loyal names";
+var llv = "Least loyal votes";
+var llpv = "Least loyal % party votes";
+var table4 = "data4";
+
+/* function for creating tables with top/bottom 10% */
+
+function flexTable(a, b, c, d) {
+  document.getElementById(d).innerHTML = "";
+  for (i = 0; i < stat[0][a].length; i++) {
     var newRow = document.createElement("tr");
-    newRow.insertCell().innerHTML = stat[0]["Most engaged names"][i];
-    newRow.insertCell().innerHTML =
-      stat[0]["Most engaged number of missed votes"][i];
-    newRow.insertCell().innerHTML =
-      stat[0]["Most engaged percentage of missed votes"][i] + " %";
+    newRow.insertCell().innerHTML = stat[0][a][i];
+    newRow.insertCell().innerHTML = stat[0][b][i];
+    newRow.insertCell().innerHTML = stat[0][c][i] + " %";
 
-    document.getElementById("data3").appendChild(newRow);
+    document.getElementById(d).appendChild(newRow);
   }
 }
 
-tableMostEngaged();
+/* at Glance */
+
+function glance() {
+  var totalAmt =
+    stat[0]["No of Republicans"] +
+    stat[0]["No of Democrats"] +
+    stat[0]["No of Independents"];
+
+  temp1 =
+    "<tr><td>Republicans</td><td>" +
+    +stat[0]["No of Republicans"] +
+    "</td><td>" +
+    stat[0]["Average Republicans"] +
+    " % </td></tr>";
+  temp1 +=
+    "<tr><td>Democrats</td><td>" +
+    stat[0]["No of Democrats"] +
+    "</td><td>" +
+    stat[0]["Average Democrats"] +
+    " % </td></tr>";
+  temp1 +=
+    "<tr><td>Independents</td><td>" +
+    stat[0]["No of Independents"] +
+    "</td><td>" +
+    stat[0]["Average Independents"] +
+    " % </td></tr>";
+  temp1 +=
+    "<tr><td>Total</td><td>" +
+    totalAmt +
+    "</td><td>" +
+    stat[0]["Average All"] +
+    " % </td></tr>";
+
+  document.getElementById("data1").innerHTML = temp1;
+}
+
+function helper() {
+  eng(mvp, mv);
+  eng(vwpp, tv);
+  send();
+  if (
+    document.title == "House Attendance" ||
+    document.title == "Senate Attendance"
+  ) {
+    flexTable(men, memv, me, table3);
+    flexTable(len, lemv, le, table2);
+  } else if (
+    document.title == "House Loyality" ||
+    document.title == "Senate Loyality"
+  ) {
+    flexTable(lln, llv, llpv, table4);
+    flexTable(mln, mlv, mlpv, table5);
+  }
+  glance();
+}

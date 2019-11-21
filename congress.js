@@ -1,25 +1,48 @@
 if (document.title == "Congress House") {
-  var members = data2.results[0].members;
-  var temp = "";
+  var url = "https://api.propublica.org/congress/v1/113/house/members.json";
 } else if (document.title == "Congress Senate") {
-  var members = data.results[0].members;
+  var url = "https://api.propublica.org/congress/v1/113/senate/members.json";
 }
 
-var drop = new Array();
-for (i = 0; i < members.length; i++) {
-  drop[i] = members[i].state;
+/*fetching the data from propublica*/
+fetch(url, {
+  headers: {
+    "X-API-Key": "5sHtF1X9QGj8XEqYQe0Ca90vdJqO2CjvVBWtQzta"
+  }
+})
+  .then(function(data) {
+    return data.json();
+  })
+  .then(function(myData) {
+    console.log(myData);
+    members = myData.results[0].members;
+
+    /*helper runs each function below just when the data is fetched*/
+
+    helper();
+    selectCheck();
+  });
+
+function helper() {
+  var drop = new Array();
+  for (i = 0; i < members.length; i++) {
+    drop[i] = members[i].state;
+  }
+  drop.sort();
+  drop = [...new Set(drop)];
+
+  dropMenu = '<option class ="option" value="all">All</option>';
+
+  for (x = 0; x < drop.length; x++) {
+    dropMenu +=
+      '<option class ="option" value="' +
+      drop[x] +
+      '">' +
+      drop[x] +
+      "</option>";
+  }
+  stateList.innerHTML = dropMenu;
 }
-drop.sort();
-drop = [...new Set(drop)];
-
-dropMenu = '<option class ="option" value="all">All</option>';
-
-for (x = 0; x < drop.length; x++) {
-  dropMenu +=
-    '<option class ="option" value="' + drop[x] + '">' + drop[x] + "</option>";
-}
-stateList.innerHTML = dropMenu;
-
 function selectCheck() {
   var state = (select = document.getElementById("stateList"));
   var check = document.getElementsByClassName("check");
@@ -60,10 +83,3 @@ function selectCheck() {
     );
   }
 }
-
-selectCheck();
-
-/*var link = document.createElement("a");
-<td><a
-         link.setAttribute("href", table.url);
-link.innerHTML =  firstName + " " + middleName + " " + lastName; */
